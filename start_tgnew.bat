@@ -1,5 +1,5 @@
 @echo off
 echo Starting TgNew - Universal News Aggregator...
-cd /d "C:\workspace"
+cd /d "%~dp0"
 python main.py
 pause

@@ -55,6 +55,7 @@ class NewsItem:
     tags: List[str] = None
     hotness_score: int = 0
     language: str = "unknown"
+    is_nsfw: bool = False
 
 class DatabaseManager:
     def __init__(self, db_path: str = "tgnew.db"):
@@ -80,6 +81,7 @@ class DatabaseManager:
                 tags TEXT,
                 hotness_score INTEGER,
                 language TEXT,
+                is_nsfw BOOLEAN DEFAULT 0,
                 created_at TEXT
             )
         ''')
@@ -117,13 +119,13 @@ class DatabaseManager:
             cursor.execute('''
                 INSERT OR IGNORE INTO news_items 
                 (id, title, description, url, source, published_at, image_url, 
-                 video_url, tags, hotness_score, language, created_at)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                 video_url, tags, hotness_score, language, is_nsfw, created_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ''', (
                 item.id, item.title, item.description, item.url, item.source,
                 item.published_at.isoformat(), item.image_url, item.video_url,
                 json.dumps(item.tags or []), item.hotness_score, item.language,
-                datetime.now().isoformat()
+                item.is_nsfw, datetime.now().isoformat()
             ))
             conn.commit()
         except sqlite3.IntegrityError:
@@ -138,7 +140,8 @@ class DatabaseManager:
         cursor = conn.cursor()
         
         cursor.execute('''
-            SELECT * FROM news_items 
+            SELECT id, title, description, url, source, published_at, image_url, 
+                   video_url, tags, hotness_score, language, is_nsfw, created_at FROM news_items 
             WHERE id NOT IN (SELECT news_id FROM posted_items)
             ORDER BY hotness_score DESC
         ''')
