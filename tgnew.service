@@ -1,0 +1,17 @@
+[Unit]
+Description=TgNew - Universal News Aggregator
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/workspace
+ExecStart=/usr/local/bin/python3 /workspace/main.py
+Restart=always
+RestartSec=10
+
+# Environment variables if needed
+# Environment="PYTHONPATH=/workspace"
+
+[Install]
+WantedBy=multi-user.target

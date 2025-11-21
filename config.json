@@ -1,0 +1,68 @@
+{
+  "telegram": {
+    "bot_token": "YOUR_BOT_TOKEN_HERE",
+    "channel_id": "@your_channel_name",
+    "admin_user_ids": [123456789]
+  },
+  "search_queries": [
+    {
+      "id": 1,
+      "query": "milf OR milf porn OR milf video",
+      "filters": {
+        "min_rating": 0,
+        "with_images": false,
+        "with_video": false,
+        "nsfw_only": true,
+        "domains": [],
+        "exclude_words": ["censored", "blur", "censor"]
+      },
+      "tags": ["#18+", "#milf", "#adult"]
+    },
+    {
+      "id": 2,
+      "query": "netorare OR hentai OR anime",
+      "filters": {
+        "min_rating": 0,
+        "with_images": false,
+        "with_video": false,
+        "nsfw_only": true,
+        "domains": [],
+        "exclude_words": ["censored", "blur", "censor"]
+      },
+      "tags": ["#18+", "#hentai", "#anime"]
+    }
+  ],
+  "sources": {
+    "rss_feeds": [
+      "https://example.com/rss",
+      "https://another-site.com/feed"
+    ],
+    "social_platforms": {
+      "twitter_enabled": true,
+      "reddit_enabled": true,
+      "telegram_enabled": true
+    }
+  },
+  "filters": {
+    "blacklist_words": ["censor", "blur", "censored", "blocked"],
+    "whitelist_domains": [],
+    "min_hotness_score": 5
+  },
+  "posting": {
+    "auto_post": true,
+    "delay_min": 300,
+    "delay_max": 1800,
+    "random_order": true
+  },
+  "proxy": {
+    "enabled": false,
+    "list": []
+  },
+  "database": {
+    "url": "sqlite:///tgnew.db"
+  },
+  "web_panel": {
+    "host": "127.0.0.1",
+    "port": 8000
+  }
+}
