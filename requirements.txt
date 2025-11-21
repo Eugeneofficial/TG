@@ -1,0 +1,17 @@
+aiohttp>=3.8.0
+aiogram>=3.0.0
+beautifulsoup4>=4.12.0
+playwright>=1.40.0
+fastapi>=0.104.0
+uvicorn>=0.24.0
+sqlmodel>=0.0.16
+tortoise-orm>=0.20.0
+loguru>=0.7.0
+tqdm>=4.66.0
+colorama>=0.4.6
+feedparser>=6.0.10
+telethon>=1.28.0
+snscrape
+jinja2>=3.1.0
+python-multipart>=0.0.6
+aiofiles>=23.1.0
