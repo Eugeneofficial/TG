@@ -7,29 +7,27 @@
   "search_queries": [
     {
       "id": 1,
-      "query": "milf OR milf porn OR milf video",
+      "query": "technology OR innovation OR startup",
       "filters": {
         "min_rating": 0,
         "with_images": false,
         "with_video": false,
-        "nsfw_only": true,
         "domains": [],
         "exclude_words": ["censored", "blur", "censor"]
       },
-      "tags": ["#18+", "#milf", "#adult"]
+      "tags": ["#tech", "#innovation", "#news"]
     },
     {
       "id": 2,
-      "query": "netorare OR hentai OR anime",
+      "query": "science OR research OR discovery",
       "filters": {
         "min_rating": 0,
         "with_images": false,
         "with_video": false,
-        "nsfw_only": true,
         "domains": [],
         "exclude_words": ["censored", "blur", "censor"]
       },
-      "tags": ["#18+", "#hentai", "#anime"]
+      "tags": ["#science", "#research", "#discovery"]
     }
   ],
   "sources": {

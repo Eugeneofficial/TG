@@ -3,145 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unposted News - TgNew</title>
+    <title>News Feed - TgNew</title>
     <style>
         body {
-            font-family: 'Courier New', monospace;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
-            padding: 20px;
-            background: linear-gradient(135deg, #1a0a1f, #2d0b3d);
-            color: #ff00bb;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: #000000;
             min-height: 100vh;
         }
         .container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
+            background-color: #ffffff;
+            min-height: 100vh;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
-        header {
-            text-align: center;
-            margin-bottom: 30px;
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 300px;
+            height: 100vh;
+            background: linear-gradient(to bottom, #3d85c6, #1a7ac0);
+            color: white;
             padding: 20px;
-            border-bottom: 2px solid #ff00bb;
+            box-sizing: border-box;
+            overflow-y: auto;
         }
-        h1 {
-            color: #ff00bb;
-            font-size: 2.5em;
-            text-shadow: 0 0 10px rgba(255, 0, 187, 0.5);
+        .main-content {
+            margin-left: 340px;
+            padding: 20px;
+        }
+        .header {
+            background-color: #f0f0f0;
+            padding: 15px 20px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+        }
+        .app-title {
+            color: #3d85c6;
+            font-size: 1.5em;
+            font-weight: 600;
             margin: 0;
         }
         .news-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-top: 20px;
         }
         .news-card {
-            background: rgba(45, 11, 61, 0.7);
-            border: 1px solid #ff00bb;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 0 15px rgba(255, 0, 187, 0.3);
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            border: 1px solid #e0e0e0;
         }
         .news-title {
-            color: #a040f0;
+            color: #3d85c6;
             font-size: 1.2em;
             margin-top: 0;
+            margin-bottom: 8px;
         }
         .news-source {
-            color: #ff80e0;
+            color: #666;
             font-size: 0.9em;
+            margin-bottom: 10px;
+            display: block;
         }
         .news-tags {
             margin: 10px 0;
         }
         .tag {
             display: inline-block;
-            background: rgba(160, 64, 240, 0.3);
-            color: #ff80e0;
+            background: #e0e0e0;
+            color: #333;
             padding: 3px 8px;
             border-radius: 10px;
             margin-right: 5px;
             font-size: 0.8em;
         }
         .news-description {
-            color: #e0c0ff;
+            color: #333;
             margin: 10px 0;
+            line-height: 1.4;
         }
         .news-stats {
-            font-size: 0.8em;
-            color: #c0a0ff;
+            font-size: 0.85em;
+            color: #666;
+            margin: 10px 0;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
         }
         .news-link {
             display: inline-block;
-            background: linear-gradient(45deg, #ff00bb, #a040f0);
+            background: #3d85c6;
             color: white;
             text-decoration: none;
             padding: 8px 15px;
-            border-radius: 5px;
+            border-radius: 18px;
             margin-top: 10px;
+            font-size: 0.9em;
         }
         .news-link:hover {
-            box-shadow: 0 0 15px rgba(255, 0, 187, 0.7);
+            background: #1a7ac0;
         }
         .controls {
             text-align: center;
             margin-top: 20px;
         }
         button {
-            background: linear-gradient(45deg, #ff00bb, #a040f0);
+            background: #3d85c6;
             color: white;
             border: none;
             padding: 10px 20px;
-            border-radius: 5px;
+            border-radius: 18px;
             cursor: pointer;
             font-family: inherit;
-            margin: 5px;
+            margin: 0 5px;
+            font-weight: 500;
         }
         button:hover {
-            box-shadow: 0 0 15px rgba(255, 0, 187, 0.7);
+            background: #1a7ac0;
         }
-        .neon-text {
-            color: #ff00bb;
-            text-shadow: 0 0 10px rgba(255, 0, 187, 0.7);
+        .telegram-btn {
+            background: #0088cc;
+        }
+        .telegram-btn:hover {
+            background: #0077b3;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1 class="neon-text">Unposted News Items</h1>
-            <p>Total: {{ news_items|length }} items</p>
-        </header>
-        
-        <div class="news-grid">
-            {% for item in news_items %}
-            <div class="news-card">
-                <h3 class="news-title">{{ item.title }}</h3>
-                <div class="news-source">Source: {{ item.source }}</div>
-                
-                {% if item.tags %}
-                <div class="news-tags">
-                    {% for tag in item.tags %}
-                    <span class="tag">{{ tag }}</span>
-                    {% endfor %}
-                </div>
-                {% endif %}
-                
-                <div class="news-description">{{ item.description[:200] }}{% if item.description|length > 200 %}...{% endif %}</div>
-                
-                <div class="news-stats">
-                    Hotness: {{ item.hotness_score }} | 
-                    NSFW: {% if item.is_nsfw %}Yes{% else %}No{% endif %} |
-                    Date: {{ item.published_at.strftime('%Y-%m-%d %H:%M') }}
-                </div>
-                
-                <a href="{{ item.url }}" target="_blank" class="news-link">Read More</a>
+        <div class="sidebar">
+            <h2 style="color: white; margin-top: 0; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.2);">TgNew</h2>
+            <div style="margin: 20px 0;">
+                <a href="/" style="display: block; padding: 10px; color: white; text-decoration: none; border-radius: 6px; background: rgba(255,255,255,0.1); margin: 5px 0;">Dashboard</a>
+                <a href="/news" style="display: block; padding: 10px; color: white; text-decoration: none; border-radius: 6px; margin: 5px 0;">News Feed</a>
+                <a href="#" style="display: block; padding: 10px; color: white; text-decoration: none; border-radius: 6px; margin: 5px 0;">Settings</a>
             </div>
-            {% endfor %}
+            <div style="position: absolute; bottom: 20px; width: calc(100% - 40px);">
+                <p style="color: rgba(255,255,255,0.7); font-size: 0.9em;">TgNew v1.0</p>
+                <p style="color: rgba(255,255,255,0.5); font-size: 0.8em;">The Future is Now (2025)</p>
+            </div>
         </div>
         
-        <div class="controls">
-            <button onclick="location.href='/'">Back to Dashboard</button>
-            <button onclick="location.reload()">Refresh</button>
+        <div class="main-content">
+            <div class="header">
+                <h1 class="app-title">News Feed</h1>
+            </div>
+            
+            <p>Total: {{ news_items|length }} items</p>
+            
+            <div class="news-grid">
+                {% for item in news_items %}
+                <div class="news-card">
+                    <h3 class="news-title">{{ item.title }}</h3>
+                    <span class="news-source">Source: {{ item.source }}</span>
+                    
+                    {% if item.tags %}
+                    <div class="news-tags">
+                        {% for tag in item.tags %}
+                        <span class="tag">{{ tag }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    
+                    <div class="news-description">{{ item.description[:200] }}{% if item.description|length > 200 %}...{% endif %}</div>
+                    
+                    <div class="news-stats">
+                        Hotness: {{ item.hotness_score }} | 
+                        Date: {{ item.published_at.strftime('%Y-%m-%d %H:%M') }}
+                    </div>
+                    
+                    <a href="{{ item.url }}" target="_blank" class="news-link">Read More</a>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <div class="controls">
+                <button class="telegram-btn" onclick="location.href='/'">Back to Dashboard</button>
+                <button onclick="location.reload()">Refresh</button>
+            </div>
         </div>
     </div>
 </body>
